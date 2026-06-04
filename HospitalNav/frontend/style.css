@@ -1,0 +1,623 @@
+:root {
+    --bg: #0f1419;
+    --panel: rgba(20, 30, 48, 0.92);
+    --accent: #0066ff;
+    --accent-light: #3b9eff;
+    --danger: #ff3333;
+    --danger-light: #ff6666;
+    --success: #00cc66;
+    --text: #e8eef9;
+    --text-secondary: #9db4d4;
+    --border: rgba(100, 150, 255, 0.2);
+}
+
+/* RESET */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+body {
+    background: var(--bg);
+    color: var(--text);
+    overflow: hidden;
+}
+
+/* MAP */
+#map {
+    height: 100vh;
+    width: 100%;
+    background: linear-gradient(135deg, #1a2a4a 0%, #0f1419 100%);
+}
+
+/* FLOATING PANEL */
+.sidebar {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 300px;
+    padding: 25px;
+    border-radius: 16px;
+    background: var(--panel);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--border);
+    box-shadow: 0 20px 60px rgba(0, 20, 60, 0.8), inset 0 1px 1px rgba(255, 255, 255, 0.1);
+    z-index: 1000;
+    animation: slideIn 0.4s ease-out;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* TITLE */
+.sidebar h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--accent-light), #6b9eff);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    letter-spacing: -0.5px;
+}
+
+/* FILTER SECTION */
+.filter-section {
+    margin-bottom: 16px;
+}
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+/* SIDEBAR HEADER */
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    flex: 1;
+}
+
+.header-buttons {
+    display: flex;
+    gap: 6px;
+}
+
+/* ICON BUTTONS */
+.icon-btn {
+    width: 36px;
+    height: 36px;
+    padding: 0;
+    background: rgba(0, 102, 255, 0.2);
+    border: 1px solid var(--border);
+    color: var(--accent);
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+.icon-btn:hover {
+    background: rgba(0, 102, 255, 0.3);
+    border-color: var(--accent);
+    transform: scale(1.05);
+}
+
+/* SEARCH BOX */
+.search-box {
+    margin-bottom: 12px;
+}
+
+.search-box input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: rgba(30, 50, 80, 0.7);
+    color: var(--text);
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+.search-box input::placeholder {
+    color: var(--text-secondary);
+}
+
+.search-box input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+/* SIDE PANELS */
+.side-panel {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    width: 320px;
+    max-height: 80vh;
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0, 20, 60, 0.8);
+    z-index: 999;
+    display: flex;
+    flex-direction: column;
+    animation: slideInRight 0.4s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.panel-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.panel-header h3 {
+    margin: 0;
+    font-size: 16px;
+    color: var(--accent-light);
+}
+
+.close-btn {
+    background: none;
+    border: none;
+    color: var(--text-secondary);
+    font-size: 18px;
+    cursor: pointer;
+    padding: 0;
+    width: auto;
+    margin: 0;
+    transition: all 0.2s ease;
+}
+
+.close-btn:hover {
+    color: var(--text);
+    transform: scale(1.2);
+}
+
+.panel-content {
+    flex: 1;
+    overflow-y: auto;
+    padding: 12px;
+}
+
+.panel-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.panel-content::-webkit-scrollbar-track {
+    background: rgba(50, 80, 130, 0.2);
+    border-radius: 10px;
+}
+
+.panel-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 102, 255, 0.5);
+    border-radius: 10px;
+}
+
+.panel-content::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 102, 255, 0.7);
+}
+
+/* FAVORITES & HISTORY ITEMS */
+.favorite-item, .history-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(50, 80, 130, 0.2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: 12px;
+}
+
+.favorite-item:hover, .history-item:hover {
+    background: rgba(50, 80, 130, 0.4);
+    border-color: var(--accent);
+}
+
+.favorite-item b, .history-item b {
+    color: var(--accent-light);
+    display: block;
+    margin-bottom: 4px;
+}
+
+.favorite-remove {
+    float: right;
+    cursor: pointer;
+    color: var(--danger);
+    font-size: 14px;
+}
+
+.favorite-remove:hover {
+    transform: scale(1.2);
+}
+
+/* SETTINGS */
+.setting-item {
+    padding: 10px;
+    margin-bottom: 8px;
+    background: rgba(50, 80, 130, 0.2);
+    border-radius: 8px;
+    font-size: 12px;
+}
+
+.setting-item label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: 8px;
+}
+
+.setting-item input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: var(--accent);
+}
+
+/* COMPARISON BOX */
+#comparisonBox {
+    display: none !important;
+}
+
+#comparisonBox.active {
+    display: block !important;
+}
+
+/* MODAL */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.7);
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 24px;
+    max-width: 500px;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.9);
+    position: relative;
+}
+
+.modal-large {
+    max-width: 700px;
+}
+
+.modal-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.modal-content::-webkit-scrollbar-track {
+    background: rgba(50, 80, 130, 0.2);
+}
+
+.modal-content::-webkit-scrollbar-thumb {
+    background: rgba(0, 102, 255, 0.5);
+    border-radius: 3px;
+}
+
+.modal-content .close-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    color: var(--text-secondary);
+}
+
+/* HOSPITAL DETAILS */
+.hospital-details {
+    font-size: 13px;
+    color: var(--text-secondary);
+}
+
+.hospital-details h3 {
+    color: var(--accent-light);
+    font-size: 20px;
+    margin: 0 0 16px 0;
+}
+
+.detail-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-row:last-child {
+    border-bottom: none;
+}
+
+.detail-row strong {
+    color: var(--text);
+}
+
+.detail-actions {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+}
+
+.detail-actions button {
+    flex: 1;
+    padding: 10px;
+    font-size: 12px;
+    margin: 0;
+}
+
+/* COMPARISON TABLE */
+.comparison-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    margin-bottom: 16px;
+}
+
+.comparison-table th,
+.comparison-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+}
+
+.comparison-table th {
+    background: rgba(0, 102, 255, 0.1);
+    color: var(--accent-light);
+    font-weight: 600;
+}
+
+.comparison-table tr:hover {
+    background: rgba(50, 80, 130, 0.2);
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .side-panel {
+        width: calc(100vw - 40px);
+        max-width: 300px;
+        right: 20px;
+    }
+    
+    .modal-content {
+        max-width: calc(100vw - 40px);
+    }
+}
+
+/* SELECTS */
+select {
+    width: 100%;
+    padding: 11px 14px;
+    margin-bottom: 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: rgba(30, 50, 80, 0.7);
+    color: var(--text);
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%233b9eff' d='M1 1l5 5 5-5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 12px center;
+    padding-right: 35px;
+}
+
+select:hover {
+    border-color: var(--accent);
+    background-color: rgba(30, 60, 100, 0.8);
+}
+
+select:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+}
+
+select option {
+    background: #1a2a4a;
+    color: var(--text);
+}
+
+/* INPUTS */
+input {
+    width: 100%;
+    padding: 11px 14px;
+    margin-bottom: 12px;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    background: rgba(30, 50, 80, 0.7);
+    color: var(--text);
+    font-size: 13px;
+    transition: all 0.3s ease;
+}
+
+input::placeholder {
+    color: var(--text-secondary);
+}
+
+input:hover {
+    border-color: var(--accent);
+    background-color: rgba(30, 60, 100, 0.8);
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(0, 102, 255, 0.1);
+    background: rgba(30, 60, 100, 0.9);
+}
+
+/* BUTTONS */
+button {
+    width: 100%;
+    padding: 12px 16px;
+    margin-top: 8px;
+    border: none;
+    border-radius: 10px;
+    background: linear-gradient(135deg, var(--accent), var(--accent-light));
+    color: white;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 102, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+button:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.2);
+    transition: left 0.3s ease;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 102, 255, 0.4);
+}
+
+button:active {
+    transform: translateY(0);
+}
+
+.danger {
+    background: linear-gradient(135deg, var(--danger), var(--danger-light));
+    box-shadow: 0 4px 15px rgba(255, 51, 51, 0.3);
+}
+
+.danger:hover {
+    box-shadow: 0 6px 20px rgba(255, 51, 51, 0.4);
+}
+
+/* INFO PANEL */
+#info {
+    margin-top: 18px;
+    padding: 12px 14px;
+    font-size: 13px;
+    color: var(--text-secondary);
+    background: rgba(50, 80, 130, 0.3);
+    border-left: 3px solid var(--accent);
+    border-radius: 6px;
+    line-height: 1.6;
+    min-height: 20px;
+}
+
+#info:empty {
+    display: none;
+}
+
+/* POPUP */
+.leaflet-popup-content-wrapper {
+    background: var(--panel) !important;
+    border: 1px solid var(--border) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7) !important;
+}
+
+.leaflet-popup-content {
+    font-size: 14px;
+    text-align: center;
+    color: var(--text);
+    margin: 8px !important;
+}
+
+.leaflet-popup-content b {
+    color: var(--accent-light);
+    font-size: 16px;
+    display: block;
+    margin-bottom: 8px;
+}
+
+.leaflet-popup-content button {
+    margin-top: 10px;
+    padding: 8px 12px;
+    font-size: 12px;
+    background: var(--accent) !important;
+    box-shadow: 0 2px 8px rgba(0, 102, 255, 0.3) !important;
+}
+
+.leaflet-popup-tip {
+    background: var(--panel) !important;
+    border-top: 1px solid var(--border) !important;
+}
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 280px;
+        top: 15px;
+        left: 15px;
+        padding: 20px;
+    }
+    
+    .sidebar h2 {
+        font-size: 20px;
+        margin-bottom: 15px;
+    }
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+    .sidebar {
+        width: 90%;
+        left: 5%;
+        top: auto;
+        bottom: 20px;
+    }
+}
